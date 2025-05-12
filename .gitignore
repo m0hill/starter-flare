@@ -1,0 +1,40 @@
+# Production build
+dist/
+build/
+.react-router
+*.tsbuildinfo
+
+# Development
+.vscode/*
+!.vscode/launch.json
+!.vscode/*.code-snippets
+.idea/workspace.xml
+.idea/usage.statistics.xml
+.idea/shelf
+
+# Dependencies
+node_modules/
+.pnpm-store/
+.pnpm-debug.log*
+.wrangler/
+wrangler.jsonc
+migrations/
+
+# Environment variables
+.env
+.env.*
+!.env.example
+.dev.vars
+
+# Logs
+logs/
+*.log
+pnpm-debug.log*
+
+# OS-specific files
+.DS_Store
+Thumbs.db
+
+# pnpm-specific
+pnpm-lock.yaml
+.pnpm-store/
