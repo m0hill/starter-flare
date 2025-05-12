@@ -1,7 +1,7 @@
 import { DashboardSidebar } from '@/app/components/dashboard-sidebar'
+import { SidebarInset, SidebarProvider, SidebarTrigger } from '@/app/components/ui/sidebar'
 import { SessionProvider, useSession } from '@/app/contexts/session-context'
 import { logError } from '@/app/lib/error-utils'
-import { SidebarInset, SidebarProvider, SidebarTrigger } from '@/app/components/ui/sidebar'
 import { useEffect } from 'react'
 import { Outlet, useNavigate } from 'react-router'
 import type { LoaderFunction } from 'react-router'

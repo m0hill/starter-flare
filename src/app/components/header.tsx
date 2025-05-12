@@ -1,4 +1,4 @@
-import { ModeToggle } from '@/app/components/mode-toggle'
+import { ThemeToggle } from '@/app/components/ui/theme-toggle'
 import { Link } from 'react-router'
 
 const Header = () => {
@@ -9,7 +9,7 @@ const Header = () => {
           <span className="text-xl font-bold">Brand</span>
         </Link>
         <div className="flex items-center gap-4">
-          <ModeToggle />
+          <ThemeToggle />
           <nav className="flex gap-4">
             <Link
               to="/login"

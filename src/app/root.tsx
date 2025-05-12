@@ -1,7 +1,7 @@
-import { scan } from 'react-scan'
 import { logError } from '@/app/lib/error-utils'
 import { createThemeSessionResolverWithSecret, getThemeSecret } from '@/app/lib/theme-utils.server'
 import { cn } from '@/app/lib/utils'
+import { useEffect } from 'react'
 import type { LinksFunction, LoaderFunctionArgs } from 'react-router'
 import {
   Links,
@@ -13,8 +13,8 @@ import {
   useLoaderData,
   useRouteError,
 } from 'react-router'
+import { scan } from 'react-scan'
 import { PreventFlashOnWrongTheme, ThemeProvider, useTheme } from 'remix-themes'
-import { useEffect } from 'react'
 
 import styles from './tailwind.css?url'
 
@@ -63,9 +63,9 @@ export function App() {
 
   useEffect(() => {
     scan({
-      enabled: true,
-    });
-  }, []);
+      enabled: false,
+    })
+  }, [])
 
   return (
     <html lang="en" className={cn(theme)}>
