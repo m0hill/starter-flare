@@ -1,3 +1,4 @@
+import { scan } from 'react-scan'
 import { logError } from '@/app/lib/error-utils'
 import { createThemeSessionResolverWithSecret, getThemeSecret } from '@/app/lib/theme-utils.server'
 import { cn } from '@/app/lib/utils'
@@ -13,6 +14,7 @@ import {
   useRouteError,
 } from 'react-router'
 import { PreventFlashOnWrongTheme, ThemeProvider, useTheme } from 'remix-themes'
+import { useEffect } from 'react'
 
 import styles from './tailwind.css?url'
 
@@ -58,6 +60,12 @@ export default function AppWithProviders() {
 export function App() {
   const data = useLoaderData<typeof loader>()
   const [theme] = useTheme()
+
+  useEffect(() => {
+    scan({
+      enabled: true,
+    });
+  }, []);
 
   return (
     <html lang="en" className={cn(theme)}>
