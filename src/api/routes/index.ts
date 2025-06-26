@@ -1,5 +1,5 @@
 import { Hono } from 'hono'
-import userRouter from '@/api/routes/user'
+import { userRouter } from '@/api/routes/user'
 import type { BaseEnv } from '@/api/types/hono'
 
 const rpcRouter = new Hono<BaseEnv>()
