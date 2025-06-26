@@ -1,21 +1,20 @@
-import { RESEND_API_URL } from '@/api/constants/services'
-import type { EmailResponse, ResendError, SendEmailParams } from '@/api/types/email'
+import type { CreateEmailOptions, CreateEmailResponseSuccess } from 'resend'
+import { Resend } from 'resend'
 
-export const sendEmail = async (params: SendEmailParams): Promise<EmailResponse> => {
-  const response = await fetch(`${RESEND_API_URL}/emails`, {
-    method: 'POST',
-    headers: {
-      Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
-      'Content-Type': 'application/json',
-    },
-    body: JSON.stringify(params),
-  })
+const resend = new Resend(process.env.RESEND_API_KEY)
 
-  const data = (await response.json()) as EmailResponse | ResendError
+export const sendEmail = async (
+  params: CreateEmailOptions
+): Promise<CreateEmailResponseSuccess> => {
+  const { data, error } = await resend.emails.send(params)
 
-  if (!response.ok) {
-    throw data as ResendError
+  if (error) {
+    throw error
   }
 
-  return data as EmailResponse
+  if (!data) {
+    throw new Error('No data returned from Resend API')
+  }
+
+  return data
 }
