@@ -14,11 +14,13 @@
     "typecheck": "pnpm run cf-typegen && react-router typegen && tsc -b",
     "format": "biome check --write .",
     "lint": "biome lint .",
-    "db:schema": "drizzle-kit generate",
+    "db:generate": "drizzle-kit generate",
     "db:migrate:local": "wrangler d1 migrations apply upresume --local",
     "db:migrate:staging": "wrangler d1 migrations apply upresume-staging --env staging --remote",
     "db:migrate": "wrangler d1 migrations apply upresume --remote",
-    "db:studio": "drizzle-kit studio --config=drizzle.config.ts"
+    "db:studio": "TARGET=production drizzle-kit studio --config=drizzle.config.ts",
+    "db:studio:local": "TARGET=local drizzle-kit studio --config=drizzle.config.ts",
+    "db:studio:staging": "TARGET=staging drizzle-kit studio --config=drizzle.config.ts"
   },
   "dependencies": {
     "@hono/zod-validator": "0.7.0",
@@ -60,7 +62,7 @@
     "@types/react-dom": "^19.1.2",
     "better-sqlite3": "^11.6.0",
     "dotenv": "^16.4.5",
-    "drizzle-kit": "0.31.1",
+    "drizzle-kit": "0.31.2",
     "lint-staged": "16.0.0",
     "simple-git-hooks": "^2.11.1",
     "tailwindcss": "^4.0.6",

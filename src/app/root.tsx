@@ -1,4 +1,3 @@
-import { useEffect } from 'react'
 import type { LinksFunction, LoaderFunctionArgs } from 'react-router'
 import {
   isRouteErrorResponse,
@@ -10,13 +9,22 @@ import {
   useLoaderData,
   useRouteError,
 } from 'react-router'
-import { scan } from 'react-scan'
 import { PreventFlashOnWrongTheme, ThemeProvider, useTheme } from 'remix-themes'
+import { isDevelopment } from '@/app/constants/env'
 import { logError } from '@/app/lib/error-utils'
 import { createThemeSessionResolverWithSecret, getThemeSecret } from '@/app/lib/theme-utils.server'
 import { cn } from '@/app/lib/utils'
 
 import styles from './tailwind.css?url'
+
+if (isDevelopment) {
+  import('react-scan').then(({ scan }) => {
+    scan({
+      enabled: true,
+      log: true,
+    })
+  })
+}
 
 export const links: LinksFunction = () => [
   { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
@@ -60,12 +68,6 @@ export default function AppWithProviders() {
 export function App() {
   const data = useLoaderData<typeof loader>()
   const [theme] = useTheme()
-
-  useEffect(() => {
-    scan({
-      enabled: false,
-    })
-  }, [])
 
   return (
     <html lang="en" className={cn(theme)}>

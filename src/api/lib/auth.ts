@@ -36,30 +36,24 @@ export const getAuth = (env: Env) => {
       requireEmailVerification: true,
       sendResetPassword: async ({ user, token }) => {
         const resetPasswordUrl = `${APP_BASE_URL}/reset-password?token=${token}`
-        await sendEmail(
-          {
-            from: EMAIL_FROM,
-            to: user.email,
-            subject: 'Reset your password',
-            html: `<p>Click <a href="${resetPasswordUrl}">here</a> to reset your password.</p>`,
-          },
-          env.RESEND_API_KEY
-        )
+        await sendEmail({
+          from: EMAIL_FROM,
+          to: user.email,
+          subject: 'Reset your password',
+          html: `<p>Click <a href="${resetPasswordUrl}">here</a> to reset your password.</p>`,
+        })
       },
     },
     emailVerification: {
       sendOnSignUp: true,
       sendVerificationEmail: async ({ user, token }) => {
         const verificationUrl = `${APP_BASE_URL}/verify-email?token=${token}`
-        await sendEmail(
-          {
-            from: EMAIL_FROM,
-            to: user.email,
-            subject: 'Verify your email',
-            html: `<p>Click <a href="${verificationUrl}">here</a> to verify your email address.</p>`,
-          },
-          env.RESEND_API_KEY
-        )
+        await sendEmail({
+          from: EMAIL_FROM,
+          to: user.email,
+          subject: 'Verify your email',
+          html: `<p>Click <a href="${verificationUrl}">here</a> to verify your email address.</p>`,
+        })
       },
     },
     socialProviders: {

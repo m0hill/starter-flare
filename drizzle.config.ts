@@ -25,15 +25,21 @@ const getLocalD1DB = () => {
   }
 }
 
-const isRemote = process.env.TARGET === 'production' || process.env.TARGET === 'staging'
-const isProduction = process.env.TARGET === 'production'
+const target = process.env.TARGET || 'local'
+const isLocal = target === 'local'
+const isProduction = target === 'production'
 
 export default defineConfig({
   schema: './src/api/db/schema.ts',
   out: './migrations',
   dialect: 'sqlite',
-  ...(isRemote
+  ...(isLocal
     ? {
+        dbCredentials: {
+          url: getLocalD1DB(),
+        },
+      }
+    : {
         driver: 'd1-http',
         dbCredentials: {
           accountId: process.env.CLOUDFLARE_ACCOUNT_ID,
@@ -41,11 +47,6 @@ export default defineConfig({
             ? process.env.CLOUDFLARE_DATABASE_ID
             : process.env.CLOUDFLARE_DATABASE_ID_STAGING,
           token: process.env.CLOUDFLARE_D1_TOKEN,
-        },
-      }
-    : {
-        dbCredentials: {
-          url: getLocalD1DB(),
         },
       }),
 })
