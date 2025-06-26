@@ -1,6 +1,6 @@
-import { createThemeSessionResolverWithSecret, getThemeSecret } from '@/app/lib/theme-utils.server'
 import type { ActionFunctionArgs } from 'react-router'
 import { createThemeAction } from 'remix-themes'
+import { createThemeSessionResolverWithSecret, getThemeSecret } from '@/app/lib/theme-utils.server'
 
 export const action = async ({ request, context, params }: ActionFunctionArgs) => {
   const secret = getThemeSecret()

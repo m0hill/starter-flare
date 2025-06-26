@@ -19,6 +19,7 @@ export default {
       const loadContext = getLoadContext({ cloudflare: { env, ctx } })
       return await reactRouterHandler(request, loadContext)
     } catch (error) {
+      // biome-ignore lint/suspicious/noConsole: NEED
       console.error('Worker fetch error:', error)
       return new Response('Internal Server Error', { status: 500 })
     }

@@ -1,5 +1,5 @@
-import { useRedirectIfAuthenticated } from '@/app/lib/auth'
 import { Outlet } from 'react-router'
+import { useRedirectIfAuthenticated } from '@/app/lib/auth'
 
 export default function AuthLayout() {
   const isChecking = useRedirectIfAuthenticated()

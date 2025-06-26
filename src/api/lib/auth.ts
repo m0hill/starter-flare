@@ -1,10 +1,10 @@
-import { EMAIL_FROM } from '@/api/constants/services'
-import { createDB } from '@/api/db'
-import { sendEmail } from '@/api/lib/email'
-import { APP_BASE_URL } from '@/shared/constants/env'
 import { betterAuth } from 'better-auth'
 import { drizzleAdapter } from 'better-auth/adapters/drizzle'
 import { admin } from 'better-auth/plugins'
+import { APP_BASE_URL } from '@/api/constants/env'
+import { EMAIL_FROM } from '@/api/constants/services'
+import { createDB } from '@/api/db'
+import { sendEmail } from '@/api/lib/email'
 
 export const getAuth = (env: Env) => {
   const db = createDB(env)

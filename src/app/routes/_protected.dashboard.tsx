@@ -1,6 +1,6 @@
+import { ArrowUpRight, DollarSign, LineChart, ShoppingCart, Users } from 'lucide-react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/app/components/ui/card'
 import { useSession } from '@/app/contexts/session-context'
-import { ArrowUpRight, DollarSign, LineChart, ShoppingCart, Users } from 'lucide-react'
 
 export default function Dashboard() {
   const { user, isLoading } = useSession()

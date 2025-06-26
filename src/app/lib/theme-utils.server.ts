@@ -1,6 +1,6 @@
-import { APP_BASE_URL, isProduction } from '@/shared/constants/env'
 import { createCookieSessionStorage } from 'react-router'
 import { createThemeSessionResolver } from 'remix-themes'
+import { APP_BASE_URL, isProduction } from '@/app/constants/env'
 
 export function createThemeSessionResolverWithSecret(secret: string) {
   const sessionStorage = createCookieSessionStorage({

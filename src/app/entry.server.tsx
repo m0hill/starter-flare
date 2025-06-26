@@ -22,6 +22,7 @@ export default async function handleRequest(
       signal: controller.signal,
       onError(error: unknown) {
         if (!controller.signal.aborted) {
+          // biome-ignore lint/suspicious/noConsole: NEED
           console.error(error)
         }
         status = 500

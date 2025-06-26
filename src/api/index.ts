@@ -1,7 +1,3 @@
-import { getAuth } from '@/api/lib/auth'
-import rpcRouter from '@/api/routes'
-import type { BaseEnv } from '@/api/types/hono'
-import { APP_BASE_URL, isDevelopment } from '@/shared/constants/env'
 import { Hono } from 'hono'
 import { contextStorage } from 'hono/context-storage'
 import { cors } from 'hono/cors'
@@ -9,6 +5,10 @@ import { logger } from 'hono/logger'
 import { prettyJSON } from 'hono/pretty-json'
 import { requestId } from 'hono/request-id'
 import { secureHeaders } from 'hono/secure-headers'
+import { APP_BASE_URL, isDevelopment } from '@/api/constants/env'
+import { getAuth } from '@/api/lib/auth'
+import rpcRouter from '@/api/routes'
+import type { BaseEnv } from '@/api/types/hono'
 
 const app = new Hono<BaseEnv>()
 

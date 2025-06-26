@@ -1,9 +1,9 @@
-import { logError } from '@/app/lib/error-utils'
-import { APP_BASE_URL } from '@/shared/constants/env'
 import { adminClient } from 'better-auth/client/plugins'
 import { createAuthClient } from 'better-auth/react'
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router'
+import { APP_BASE_URL } from '@/app/constants/env'
+import { logError } from '@/app/lib/error-utils'
 
 export const authClient = createAuthClient({
   baseURL: APP_BASE_URL,

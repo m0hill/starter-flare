@@ -1,5 +1,5 @@
-import { ThemeToggle } from '@/app/components/ui/theme-toggle'
 import { Link } from 'react-router'
+import { ThemeToggle } from '@/app/components/ui/theme-toggle'
 
 const Header = () => {
   return (

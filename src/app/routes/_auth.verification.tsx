@@ -1,3 +1,5 @@
+import { useEffect, useState } from 'react'
+import { Link, useNavigate } from 'react-router'
 import { Button } from '@/app/components/ui/button'
 import {
   Card,
@@ -9,8 +11,6 @@ import {
 } from '@/app/components/ui/card'
 import { Spinner } from '@/app/components/ui/spinner'
 import { authClient } from '@/app/lib/auth'
-import { useEffect, useState } from 'react'
-import { Link, useNavigate } from 'react-router'
 
 export default function VerifyEmail() {
   const [email, setEmail] = useState<string>('')

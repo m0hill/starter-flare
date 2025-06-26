@@ -1,20 +1,20 @@
-import { logError } from '@/app/lib/error-utils'
-import { createThemeSessionResolverWithSecret, getThemeSecret } from '@/app/lib/theme-utils.server'
-import { cn } from '@/app/lib/utils'
 import { useEffect } from 'react'
 import type { LinksFunction, LoaderFunctionArgs } from 'react-router'
 import {
+  isRouteErrorResponse,
   Links,
   Meta,
   Outlet,
   Scripts,
   ScrollRestoration,
-  isRouteErrorResponse,
   useLoaderData,
   useRouteError,
 } from 'react-router'
 import { scan } from 'react-scan'
 import { PreventFlashOnWrongTheme, ThemeProvider, useTheme } from 'remix-themes'
+import { logError } from '@/app/lib/error-utils'
+import { createThemeSessionResolverWithSecret, getThemeSecret } from '@/app/lib/theme-utils.server'
+import { cn } from '@/app/lib/utils'
 
 import styles from './tailwind.css?url'
 

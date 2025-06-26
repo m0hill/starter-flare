@@ -19,6 +19,7 @@ const getLocalD1DB = () => {
     const url = path.resolve(basePath, dbFile)
     return url
   } catch (err) {
+    // biome-ignore lint/suspicious/noConsole: for development purposes
     console.info(`Error finding local DB: ${err}`)
     return null
   }

@@ -1,12 +1,10 @@
+import { useEffect, useState } from 'react'
+import type { LoaderFunction } from 'react-router'
+import { data, Link, useLoaderData } from 'react-router'
 import { Button } from '@/app/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/app/components/ui/card'
 import { authClient } from '@/app/lib/auth'
 import { handleServerError } from '@/app/lib/error-utils'
-import { useEffect, useState } from 'react'
-import { useLoaderData } from 'react-router'
-import { Link } from 'react-router'
-import type { LoaderFunction } from 'react-router'
-import { data } from 'react-router'
 
 interface LoaderData {
   status: 'verifying' | 'success' | 'error'

@@ -4,7 +4,6 @@
     ".react-router/types/**/*",
     "src/app/**/*",
     "src/api/**/*",
-    "src/shared/**/*",
     "workers/**/*",
     "worker-configuration.d.ts"
   ],
@@ -22,8 +21,7 @@
     "rootDirs": [".", "./.react-router/types"],
     "paths": {
       "@/app/*": ["./src/app/*"],
-      "@/api/*": ["./src/api/*"],
-      "@/shared/*": ["./src/shared/*"]
+      "@/api/*": ["./src/api/*"]
     },
     "esModuleInterop": true,
     "resolveJsonModule": true,

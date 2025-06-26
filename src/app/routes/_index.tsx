@@ -1,10 +1,11 @@
+import type { MetaFunction } from 'react-router'
+import { Link } from 'react-router'
 import Features from '@/app/components/features'
 import Footer from '@/app/components/footer'
 import Header from '@/app/components/header'
 import { Button } from '@/app/components/ui/button'
+import { APP_BASE_URL, isDevelopment, isProduction, isStaging, MODE } from '@/app/constants/env'
 import { useRedirectIfAuthenticated } from '@/app/lib/auth'
-import { Link } from 'react-router'
-import type { MetaFunction } from 'react-router'
 
 export const meta: MetaFunction = () => {
   return [
@@ -54,6 +55,42 @@ export default function Index() {
             </div>
           </div>
         </section>
+
+        <section className="w-full py-8 bg-muted/50">
+          <div className="container mx-auto max-w-7xl px-4 md:px-6">
+            <div className="flex justify-center">
+              <div className="bg-background border rounded-lg p-4 shadow-sm max-w-md w-full">
+                <h3 className="text-sm font-semibold text-muted-foreground mb-3 flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-green-500" />
+                  Environment Info
+                </h3>
+                <div className="space-y-2 font-mono text-sm">
+                  <div className="flex justify-between items-center">
+                    <span className="text-muted-foreground">Environment:</span>
+                    <span
+                      className={`px-2 py-1 rounded text-xs font-medium ${
+                        isDevelopment
+                          ? 'bg-blue-100 text-blue-800'
+                          : isProduction
+                            ? 'bg-green-100 text-green-800'
+                            : isStaging
+                              ? 'bg-yellow-100 text-yellow-800'
+                              : 'bg-gray-100 text-gray-800'
+                      }`}
+                    >
+                      {MODE}
+                    </span>
+                  </div>
+                  <div className="flex justify-between items-center">
+                    <span className="text-muted-foreground">Base URL:</span>
+                    <span className="text-primary text-xs break-all">{APP_BASE_URL}</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
         <Features />
       </main>
       <Footer />

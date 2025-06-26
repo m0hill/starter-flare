@@ -1,8 +1,8 @@
-import { createDB } from '@/api/db'
-import type { BaseEnv } from '@/api/types/hono'
 import { zValidator } from '@hono/zod-validator'
 import { Hono } from 'hono'
 import { z } from 'zod'
+import { createDB } from '@/api/db'
+import type { BaseEnv } from '@/api/types/hono'
 
 const router = new Hono<BaseEnv>()
 

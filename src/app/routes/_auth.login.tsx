@@ -1,3 +1,9 @@
+import { zodResolver } from '@hookform/resolvers/zod'
+import { EyeIcon, EyeOffIcon } from 'lucide-react'
+import { useEffect, useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { Link, useNavigate, useSearchParams } from 'react-router'
+import { z } from 'zod'
 import { Button } from '@/app/components/ui/button'
 import {
   Card,
@@ -18,12 +24,6 @@ import {
 import { Input } from '@/app/components/ui/input'
 import { Spinner } from '@/app/components/ui/spinner'
 import { authClient } from '@/app/lib/auth'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { EyeIcon, EyeOffIcon } from 'lucide-react'
-import { useEffect, useState } from 'react'
-import { useForm } from 'react-hook-form'
-import { Link, useNavigate, useSearchParams } from 'react-router'
-import { z } from 'zod'
 
 const loginSchema = z.object({
   email: z.string().email({ message: 'Please enter a valid email address' }),

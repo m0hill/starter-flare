@@ -1,5 +1,5 @@
-import { Button } from '@/app/components/ui/button'
 import { useNavigate } from 'react-router'
+import { Button } from '@/app/components/ui/button'
 
 export function meta() {
   return [
@@ -9,11 +9,11 @@ export function meta() {
 }
 
 export default function CatchAllRoute() {
-  const navigate = useNavigate();
+  const navigate = useNavigate()
 
   const goBack = () => {
     navigate(-1)
-  };
+  }
 
   return (
     <div className="flex flex-col items-center justify-center min-h-screen p-4">
@@ -21,9 +21,7 @@ export default function CatchAllRoute() {
       <p className="text-lg mb-8">
         The page you're looking for doesn't exist or is still under development.
       </p>
-      <Button onClick={goBack}>
-        Go Back
-      </Button>
+      <Button onClick={goBack}>Go Back</Button>
     </div>
   )
 }

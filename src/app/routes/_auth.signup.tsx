@@ -1,3 +1,9 @@
+import { zodResolver } from '@hookform/resolvers/zod'
+import { EyeIcon, EyeOffIcon } from 'lucide-react'
+import { useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { Link, useNavigate } from 'react-router'
+import { z } from 'zod'
 import { Button } from '@/app/components/ui/button'
 import {
   Card,
@@ -19,12 +25,6 @@ import { Input } from '@/app/components/ui/input'
 import { Spinner } from '@/app/components/ui/spinner'
 import { PASSWORD_REGEX, PASSWORD_REQUIREMENTS } from '@/app/constants/routes'
 import { authClient } from '@/app/lib/auth'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { EyeIcon, EyeOffIcon } from 'lucide-react'
-import { useState } from 'react'
-import { useForm } from 'react-hook-form'
-import { Link, useNavigate } from 'react-router'
-import { z } from 'zod'
 
 const RegisterSchema = z
   .object({

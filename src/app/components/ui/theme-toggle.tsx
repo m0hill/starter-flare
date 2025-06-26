@@ -1,7 +1,7 @@
-import { cn } from '@/app/lib/utils'
 import { Moon, Sun } from 'lucide-react'
 import { useCallback, useEffect } from 'react'
 import { Theme, useTheme } from 'remix-themes'
+import { cn } from '@/app/lib/utils'
 
 export function ThemeToggle({ className }: { className?: string }) {
   const [theme, setTheme] = useTheme()

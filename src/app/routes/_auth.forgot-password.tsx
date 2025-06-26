@@ -1,3 +1,8 @@
+import { zodResolver } from '@hookform/resolvers/zod'
+import { useId, useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { Link } from 'react-router'
+import { z } from 'zod'
 import { Button } from '@/app/components/ui/button'
 import {
   Card,
@@ -18,11 +23,6 @@ import {
 import { Input } from '@/app/components/ui/input'
 import { Spinner } from '@/app/components/ui/spinner'
 import { authClient } from '@/app/lib/auth'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useState } from 'react'
-import { useForm } from 'react-hook-form'
-import { Link } from 'react-router'
-import { z } from 'zod'
 
 const ForgotPasswordSchema = z.object({
   email: z.string().email('Please enter a valid email address'),
@@ -34,6 +34,7 @@ export default function ForgotPasswordPage() {
   const [error, setError] = useState<string>()
   const [isLoading, setIsLoading] = useState(false)
   const [success, setSuccess] = useState(false)
+  const emailId = useId()
 
   const form = useForm<FormValues>({
     resolver: zodResolver(ForgotPasswordSchema),
@@ -92,9 +93,9 @@ export default function ForgotPasswordPage() {
                     name="email"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel htmlFor="email">Email</FormLabel>
+                        <FormLabel htmlFor={emailId}>Email</FormLabel>
                         <FormControl>
-                          <Input id="email" placeholder="m@example.com" type="email" {...field} />
+                          <Input id={emailId} placeholder="m@example.com" type="email" {...field} />
                         </FormControl>
                         <FormMessage />
                       </FormItem>

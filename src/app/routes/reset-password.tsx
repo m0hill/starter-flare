@@ -1,3 +1,9 @@
+import { zodResolver } from '@hookform/resolvers/zod'
+import { EyeIcon, EyeOffIcon } from 'lucide-react'
+import { useEffect, useId, useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { Link, useNavigate, useSearchParams } from 'react-router'
+import { z } from 'zod'
 import { Button } from '@/app/components/ui/button'
 import {
   Card,
@@ -19,12 +25,6 @@ import { Input } from '@/app/components/ui/input'
 import { Spinner } from '@/app/components/ui/spinner'
 import { PASSWORD_REGEX, PASSWORD_REQUIREMENTS } from '@/app/constants/routes'
 import { authClient } from '@/app/lib/auth'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { EyeIcon, EyeOffIcon } from 'lucide-react'
-import { useEffect, useState } from 'react'
-import { useForm } from 'react-hook-form'
-import { Link, useNavigate, useSearchParams } from 'react-router'
-import { z } from 'zod'
 
 const ResetPasswordSchema = z
   .object({
@@ -47,6 +47,8 @@ export default function ResetPasswordPage() {
   const [tokenError, setTokenError] = useState<string | undefined>()
   const [showNewPassword, setShowNewPassword] = useState(false)
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
+  const newPasswordId = useId()
+  const confirmPasswordId = useId()
   const token = searchParams.get('token')
 
   useEffect(() => {
@@ -126,11 +128,11 @@ export default function ResetPasswordPage() {
                     name="newPassword"
                     render={({ field, fieldState }) => (
                       <FormItem>
-                        <FormLabel htmlFor="new-password">New Password</FormLabel>
+                        <FormLabel htmlFor={newPasswordId}>New Password</FormLabel>
                         <FormControl>
                           <div className="relative">
                             <Input
-                              id="new-password"
+                              id={newPasswordId}
                               type={showNewPassword ? 'text' : 'password'}
                               {...field}
                             />
@@ -163,11 +165,11 @@ export default function ResetPasswordPage() {
                     name="confirmPassword"
                     render={({ field }) => (
                       <FormItem>
-                        <FormLabel htmlFor="confirm-password">Confirm New Password</FormLabel>
+                        <FormLabel htmlFor={confirmPasswordId}>Confirm New Password</FormLabel>
                         <FormControl>
                           <div className="relative">
                             <Input
-                              id="confirm-password"
+                              id={confirmPasswordId}
                               type={showConfirmPassword ? 'text' : 'password'}
                               {...field}
                             />

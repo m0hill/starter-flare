@@ -12,8 +12,7 @@ import {
   User,
   Users,
 } from 'lucide-react'
-import { Link } from 'react-router'
-
+import { Link, useNavigate } from 'react-router'
 import { Avatar, AvatarFallback, AvatarImage } from '@/app/components/ui/avatar'
 import {
   DropdownMenu,
@@ -41,7 +40,7 @@ import {
 import { ThemeToggle } from '@/app/components/ui/theme-toggle'
 import { useSession } from '@/app/contexts/session-context'
 import { authClient } from '@/app/lib/auth'
-import { useNavigate } from 'react-router'
+import { logError } from '@/app/lib/error-utils'
 
 export function DashboardSidebar() {
   const { user } = useSession()
@@ -53,7 +52,7 @@ export function DashboardSidebar() {
       await authClient.signOut()
       navigate('/login')
     } catch (error) {
-      console.error('Logout failed', error)
+      logError(error, 'auth:logout')
     }
   }
 
