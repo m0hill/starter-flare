@@ -1,75 +1,64 @@
 import { useEffect, useState } from 'react'
-import type { LoaderFunction } from 'react-router'
-import { data, Link, useLoaderData } from 'react-router'
+import { Link, useSearchParams } from 'react-router'
 import { Button } from '@/app/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/app/components/ui/card'
 import { authClient } from '@/app/lib/auth'
-import { handleServerError } from '@/app/lib/error-utils'
 
-interface LoaderData {
-  status: 'verifying' | 'success' | 'error'
+interface VerificationState {
+  status: 'loading' | 'success' | 'error'
   message?: string
 }
 
-export const loader: LoaderFunction = async ({ request }) => {
-  const url = new URL(request.url)
-  const token = url.searchParams.get('token')
-
-  if (!token) {
-    return data(
-      {
-        status: 'error',
-        message: 'Verification token is missing. Please check your email link.',
-      },
-      { status: 400 }
-    )
-  }
-
-  try {
-    const { error } = await authClient.verifyEmail({
-      query: { token },
-    })
-
-    if (error) {
-      return data(
-        {
-          status: 'error',
-          message: error.message || 'Failed to verify email. The link may be expired or invalid.',
-        },
-        { status: 400 }
-      )
-    }
-
-    return {
-      status: 'success',
-    }
-  } catch (error) {
-    return handleServerError(
-      error,
-      'auth:email-verification',
-      'An unexpected error occurred during email verification.'
-    )
-  }
-}
-
 export default function VerifyEmail() {
-  const { status, message } = useLoaderData<LoaderData>()
-  const [isLoading, setIsLoading] = useState(true)
+  const [searchParams] = useSearchParams()
+  const [verificationState, setVerificationState] = useState<VerificationState>({
+    status: 'loading',
+  })
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setIsLoading(false)
+    const verifyEmail = async () => {
+      const token = searchParams.get('token')
 
-      if (status === 'success') {
+      if (!token) {
+        setVerificationState({
+          status: 'error',
+          message: 'Verification token is missing. Please check your email link.',
+        })
+        return
+      }
+
+      try {
+        const result = await authClient.verifyEmail({
+          query: { token },
+        })
+
+        if (result.error) {
+          setVerificationState({
+            status: 'error',
+            message:
+              result.error.message || 'Failed to verify email. The link may be expired or invalid.',
+          })
+          return
+        }
+
+        setVerificationState({
+          status: 'success',
+        })
+
         localStorage.removeItem('verification_email')
         localStorage.removeItem('verification_timestamp')
+      } catch (_error) {
+        setVerificationState({
+          status: 'error',
+          message: 'An unexpected error occurred during email verification. Please try again.',
+        })
       }
-    }, 500)
+    }
 
-    return () => clearTimeout(timer)
-  }, [status])
+    verifyEmail()
+  }, [searchParams])
 
-  if (isLoading) {
+  if (verificationState.status === 'loading') {
     return (
       <div className="flex min-h-screen flex-col">
         <main className="flex-1 flex items-center justify-center py-12">
@@ -97,16 +86,16 @@ export default function VerifyEmail() {
         <Card className="w-full max-w-md mx-4">
           <CardHeader className="space-y-1">
             <CardTitle className="text-2xl font-bold">
-              {status === 'success' ? 'Email Verified!' : 'Verification Failed'}
+              {verificationState.status === 'success' ? 'Email Verified!' : 'Verification Failed'}
             </CardTitle>
             <CardDescription>
-              {status === 'success'
+              {verificationState.status === 'success'
                 ? 'Your email has been successfully verified. You can now login to your account.'
-                : message}
+                : verificationState.message}
             </CardDescription>
           </CardHeader>
           <CardContent className="space-y-4 flex justify-center">
-            {status === 'success' ? (
+            {verificationState.status === 'success' ? (
               <div className="space-y-4 w-full">
                 <div className="flex justify-center">
                   <svg
