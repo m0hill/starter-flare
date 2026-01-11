@@ -1,5 +1,5 @@
-import type { CreateEmailOptions, CreateEmailResponseSuccess } from 'resend'
-import { Resend } from 'resend'
+import type { CreateEmailOptions, CreateEmailResponseSuccess } from "resend"
+import { Resend } from "resend"
 
 const resend = new Resend(process.env.RESEND_API_KEY)
 
@@ -13,7 +13,7 @@ export const sendEmail = async (
   }
 
   if (!data) {
-    throw new Error('No data returned from Resend API')
+    throw new Error("No data returned from Resend API")
   }
 
   return data

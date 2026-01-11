@@ -1,10 +1,10 @@
-import { zodResolver } from '@hookform/resolvers/zod'
-import { EyeIcon, EyeOffIcon } from 'lucide-react'
-import { useEffect, useId, useState } from 'react'
-import { useForm } from 'react-hook-form'
-import { Link, useNavigate, useSearchParams } from 'react-router'
-import { z } from 'zod'
-import { Button } from '@/app/components/ui/button'
+import { zodResolver } from "@hookform/resolvers/zod"
+import { EyeIcon, EyeOffIcon } from "lucide-react"
+import { useEffect, useId, useState } from "react"
+import { useForm } from "react-hook-form"
+import { Link, useNavigate, useSearchParams } from "react-router"
+import { z } from "zod"
+import { Button } from "@/app/components/ui/button"
 import {
   Card,
   CardContent,
@@ -12,7 +12,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from '@/app/components/ui/card'
+} from "@/app/components/ui/card"
 import {
   Form,
   FormControl,
@@ -20,11 +20,11 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/app/components/ui/form'
-import { Input } from '@/app/components/ui/input'
-import { Spinner } from '@/app/components/ui/spinner'
-import { PASSWORD_REGEX, PASSWORD_REQUIREMENTS } from '@/app/constants/routes'
-import { authClient } from '@/app/lib/auth'
+} from "@/app/components/ui/form"
+import { Input } from "@/app/components/ui/input"
+import { Spinner } from "@/app/components/ui/spinner"
+import { PASSWORD_REGEX, PASSWORD_REQUIREMENTS } from "@/app/constants/routes"
+import { authClient } from "@/app/lib/auth"
 
 const ResetPasswordSchema = z
   .object({
@@ -32,9 +32,9 @@ const ResetPasswordSchema = z
     confirmPassword: z.string(),
     token: z.string(),
   })
-  .refine(data => data.newPassword === data.confirmPassword, {
+  .refine((data) => data.newPassword === data.confirmPassword, {
     message: "Passwords don't match",
-    path: ['confirmPassword'],
+    path: ["confirmPassword"],
   })
 
 type FormValues = z.infer<typeof ResetPasswordSchema>
@@ -49,24 +49,24 @@ export default function ResetPasswordPage() {
   const [showConfirmPassword, setShowConfirmPassword] = useState(false)
   const newPasswordId = useId()
   const confirmPasswordId = useId()
-  const token = searchParams.get('token')
+  const token = searchParams.get("token")
 
   useEffect(() => {
-    if (searchParams.get('error') === 'invalid_token') {
-      setTokenError('The password reset link is invalid or has expired. Please request a new link.')
+    if (searchParams.get("error") === "invalid_token") {
+      setTokenError("The password reset link is invalid or has expired. Please request a new link.")
     } else if (!token) {
-      setTokenError('Missing reset token. Please request a new password reset link.')
+      setTokenError("Missing reset token. Please request a new password reset link.")
     }
   }, [searchParams, token])
 
   const form = useForm<FormValues>({
     resolver: zodResolver(ResetPasswordSchema),
     defaultValues: {
-      newPassword: '',
-      confirmPassword: '',
-      token: token || '',
+      newPassword: "",
+      confirmPassword: "",
+      token: token || "",
     },
-    mode: 'onChange',
+    mode: "onChange",
   })
 
   const onSubmit = async (values: FormValues) => {
@@ -84,13 +84,13 @@ export default function ResetPasswordPage() {
         setIsSubmitting(false)
       } else {
         // Navigate on success
-        navigate('/login?passwordReset=success')
+        navigate("/login?passwordReset=success")
       }
     } catch (err) {
       if (err instanceof Error) {
         setError(err.message)
       } else {
-        setError('An unexpected error occurred')
+        setError("An unexpected error occurred")
       }
       setIsSubmitting(false)
     }
@@ -133,7 +133,7 @@ export default function ResetPasswordPage() {
                           <div className="relative">
                             <Input
                               id={newPasswordId}
-                              type={showNewPassword ? 'text' : 'password'}
+                              type={showNewPassword ? "text" : "password"}
                               {...field}
                             />
                             <button
@@ -170,7 +170,7 @@ export default function ResetPasswordPage() {
                           <div className="relative">
                             <Input
                               id={confirmPasswordId}
-                              type={showConfirmPassword ? 'text' : 'password'}
+                              type={showConfirmPassword ? "text" : "password"}
                               {...field}
                             />
                             <button
@@ -201,7 +201,7 @@ export default function ResetPasswordPage() {
                         <Spinner variant="white" size="sm" className="ml-2" />
                       </>
                     ) : (
-                      'Reset Password'
+                      "Reset Password"
                     )}
                   </Button>
                 </form>

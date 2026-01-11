@@ -1,6 +1,6 @@
-import { useEffect, useState } from 'react'
-import { Link, useNavigate } from 'react-router'
-import { Button } from '@/app/components/ui/button'
+import { useEffect, useState } from "react"
+import { Link, useNavigate } from "react-router"
+import { Button } from "@/app/components/ui/button"
 import {
   Card,
   CardContent,
@@ -8,12 +8,12 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from '@/app/components/ui/card'
-import { Spinner } from '@/app/components/ui/spinner'
-import { authClient } from '@/app/lib/auth'
+} from "@/app/components/ui/card"
+import { Spinner } from "@/app/components/ui/spinner"
+import { authClient } from "@/app/lib/auth"
 
 export default function VerifyEmail() {
-  const [email, setEmail] = useState<string>('')
+  const [email, setEmail] = useState<string>("")
   const [error, setError] = useState<string | null>(null)
   const [success, setSuccess] = useState<string | null>(null)
   const [timeLeft, setTimeLeft] = useState(0)
@@ -21,11 +21,11 @@ export default function VerifyEmail() {
   const navigate = useNavigate()
 
   useEffect(() => {
-    const verificationEmail = localStorage.getItem('verification_email')
-    const verificationTimestamp = localStorage.getItem('verification_timestamp')
+    const verificationEmail = localStorage.getItem("verification_email")
+    const verificationTimestamp = localStorage.getItem("verification_timestamp")
 
     if (!verificationEmail || !verificationTimestamp) {
-      navigate('/login')
+      navigate("/login")
       return
     }
 
@@ -34,9 +34,9 @@ export default function VerifyEmail() {
     const thirtyMinutes = 30 * 60 * 1000
 
     if (now - timestamp > thirtyMinutes) {
-      localStorage.removeItem('verification_email')
-      localStorage.removeItem('verification_timestamp')
-      navigate('/login')
+      localStorage.removeItem("verification_email")
+      localStorage.removeItem("verification_timestamp")
+      navigate("/login")
       return
     }
 
@@ -55,8 +55,8 @@ export default function VerifyEmail() {
   useEffect(() => {
     return () => {
       if (success) {
-        localStorage.removeItem('verification_email')
-        localStorage.removeItem('verification_timestamp')
+        localStorage.removeItem("verification_email")
+        localStorage.removeItem("verification_timestamp")
       }
     }
   }, [success])
@@ -75,15 +75,15 @@ export default function VerifyEmail() {
         email,
       })
 
-      localStorage.setItem('verification_timestamp', Date.now().toString())
+      localStorage.setItem("verification_timestamp", Date.now().toString())
 
-      setSuccess('Verification email has been resent successfully!')
+      setSuccess("Verification email has been resent successfully!")
       setTimeLeft(60)
     } catch (err) {
       if (err instanceof Error) {
         setError(err.message)
       } else {
-        setError('An unexpected error occurred while sending the verification email')
+        setError("An unexpected error occurred while sending the verification email")
       }
     } finally {
       setIsLoading(false)
@@ -117,7 +117,7 @@ export default function VerifyEmail() {
             disabled={timeLeft > 0 || isLoading}
             className="w-full"
           >
-            {timeLeft > 0 ? `Resend Email (${timeLeft}s)` : 'Resend Verification Email'}
+            {timeLeft > 0 ? `Resend Email (${timeLeft}s)` : "Resend Verification Email"}
             {isLoading && <Spinner variant="white" size="sm" className="ml-2" />}
           </Button>
         </div>

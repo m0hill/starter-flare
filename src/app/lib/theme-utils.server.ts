@@ -1,17 +1,17 @@
-import { createCookieSessionStorage } from 'react-router'
-import { createThemeSessionResolver } from 'remix-themes'
-import { APP_BASE_URL, isProduction } from '@/app/constants/env'
+import { createCookieSessionStorage } from "react-router"
+import { createThemeSessionResolver } from "remix-themes"
+import { APP_BASE_URL, isProduction } from "@/app/constants/env"
 
 export function createThemeSessionResolverWithSecret(secret: string) {
   const sessionStorage = createCookieSessionStorage({
     cookie: {
-      name: 'theme',
-      path: '/',
+      name: "theme",
+      path: "/",
       httpOnly: true,
-      sameSite: 'lax',
+      sameSite: "lax",
       secrets: [secret],
       domain: new URL(APP_BASE_URL).hostname,
-      secure: APP_BASE_URL.startsWith('https'),
+      secure: APP_BASE_URL.startsWith("https"),
     },
   })
 
@@ -23,9 +23,9 @@ export function getThemeSecret() {
 
   if (!secret) {
     if (isProduction) {
-      throw new Error('THEME_COOKIE_SECRET is required in production')
+      throw new Error("THEME_COOKIE_SECRET is required in production")
     }
-    return 's3cr3t'
+    return "s3cr3t"
   }
 
   return secret

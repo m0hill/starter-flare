@@ -1,10 +1,10 @@
-import { useNavigate } from 'react-router'
-import { Button } from '@/app/components/ui/button'
+import { useNavigate } from "react-router"
+import { Button } from "@/app/components/ui/button"
 
 export function meta() {
   return [
-    { title: 'Page Not Found' },
-    { name: 'description', content: "The page you're looking for doesn't exist" },
+    { title: "Page Not Found" },
+    { name: "description", content: "The page you're looking for doesn't exist" },
   ]
 }
 

@@ -11,9 +11,9 @@ import {
   Sparkles,
   User,
   Users,
-} from 'lucide-react'
-import { Link, useNavigate } from 'react-router'
-import { Avatar, AvatarFallback, AvatarImage } from '@/app/components/ui/avatar'
+} from "lucide-react"
+import { Link, useNavigate } from "react-router"
+import { Avatar, AvatarFallback, AvatarImage } from "@/app/components/ui/avatar"
 import {
   DropdownMenu,
   DropdownMenuContent,
@@ -22,7 +22,7 @@ import {
   DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
-} from '@/app/components/ui/dropdown-menu'
+} from "@/app/components/ui/dropdown-menu"
 import {
   Sidebar,
   SidebarContent,
@@ -36,11 +36,11 @@ import {
   SidebarMenuItem,
   SidebarSeparator,
   useSidebar,
-} from '@/app/components/ui/sidebar'
-import { ThemeToggle } from '@/app/components/ui/theme-toggle'
-import { useSession } from '@/app/contexts/session-context'
-import { authClient } from '@/app/lib/auth'
-import { logError } from '@/app/lib/error-utils'
+} from "@/app/components/ui/sidebar"
+import { ThemeToggle } from "@/app/components/ui/theme-toggle"
+import { useSession } from "@/app/contexts/session-context"
+import { authClient } from "@/app/lib/auth"
+import { logError } from "@/app/lib/error-utils"
 
 export function DashboardSidebar() {
   const { user } = useSession()
@@ -50,51 +50,51 @@ export function DashboardSidebar() {
   const handleLogout = async () => {
     try {
       await authClient.signOut()
-      navigate('/login')
+      navigate("/login")
     } catch (error) {
-      logError(error, 'auth:logout')
+      logError(error, "auth:logout")
     }
   }
 
   const mainNavItems = [
     {
-      title: 'Dashboard',
+      title: "Dashboard",
       icon: LayoutDashboard,
-      href: '/dashboard',
+      href: "/dashboard",
       isActive: true,
     },
     {
-      title: 'Analytics',
+      title: "Analytics",
       icon: BarChart4,
-      href: '/analytics',
+      href: "/analytics",
     },
     {
-      title: 'Documents',
+      title: "Documents",
       icon: FileText,
-      href: '/documents',
+      href: "/documents",
     },
     {
-      title: 'Users',
+      title: "Users",
       icon: Users,
-      href: '/users',
+      href: "/users",
     },
   ]
 
   const secondaryNavItems = [
     {
-      title: 'Account',
+      title: "Account",
       icon: User,
-      href: '/account',
+      href: "/account",
     },
     {
-      title: 'Billing',
+      title: "Billing",
       icon: CreditCard,
-      href: '/billing',
+      href: "/billing",
     },
     {
-      title: 'Settings',
+      title: "Settings",
       icon: Settings,
-      href: '/settings',
+      href: "/settings",
     },
   ]
 
@@ -120,7 +120,7 @@ export function DashboardSidebar() {
           <SidebarGroupLabel>Main</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              {mainNavItems.map(item => (
+              {mainNavItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild isActive={item.isActive}>
                     <Link to={item.href}>
@@ -140,7 +140,7 @@ export function DashboardSidebar() {
           <SidebarGroupLabel>Account</SidebarGroupLabel>
           <SidebarGroupContent>
             <SidebarMenu>
-              {secondaryNavItems.map(item => (
+              {secondaryNavItems.map((item) => (
                 <SidebarMenuItem key={item.title}>
                   <SidebarMenuButton asChild>
                     <Link to={item.href}>
@@ -178,13 +178,13 @@ export function DashboardSidebar() {
                     className="w-full data-[state=open]:bg-sidebar-accent data-[state=open]:text-sidebar-accent-foreground"
                   >
                     <Avatar className="h-8 w-8 rounded-lg">
-                      {user.image ? <AvatarImage src={user.image} alt={user.name || ''} /> : null}
+                      {user.image ? <AvatarImage src={user.image} alt={user.name || ""} /> : null}
                       <AvatarFallback className="rounded-lg">
                         {user.name?.charAt(0) || user.email.charAt(0).toUpperCase()}
                       </AvatarFallback>
                     </Avatar>
                     <div className="grid flex-1 text-left text-sm leading-tight">
-                      <span className="truncate font-semibold">{user.name || 'User'}</span>
+                      <span className="truncate font-semibold">{user.name || "User"}</span>
                       <span className="truncate text-xs">{user.email}</span>
                     </div>
                     <ChevronsUpDown className="ml-auto size-4" />
@@ -192,20 +192,20 @@ export function DashboardSidebar() {
                 </DropdownMenuTrigger>
                 <DropdownMenuContent
                   className="w-[--radix-dropdown-menu-trigger-width] min-w-56 rounded-lg"
-                  side={isMobile ? 'bottom' : 'right'}
+                  side={isMobile ? "bottom" : "right"}
                   align="end"
                   sideOffset={4}
                 >
                   <DropdownMenuLabel className="p-0 font-normal">
                     <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                       <Avatar className="h-8 w-8 rounded-lg">
-                        {user.image ? <AvatarImage src={user.image} alt={user.name || ''} /> : null}
+                        {user.image ? <AvatarImage src={user.image} alt={user.name || ""} /> : null}
                         <AvatarFallback className="rounded-lg">
                           {user.name?.charAt(0) || user.email.charAt(0).toUpperCase()}
                         </AvatarFallback>
                       </Avatar>
                       <div className="grid flex-1 text-left text-sm leading-tight">
-                        <span className="truncate font-semibold">{user.name || 'User'}</span>
+                        <span className="truncate font-semibold">{user.name || "User"}</span>
                         <span className="truncate text-xs">{user.email}</span>
                       </div>
                     </div>

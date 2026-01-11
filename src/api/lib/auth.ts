@@ -1,21 +1,21 @@
-import { betterAuth } from 'better-auth'
-import { drizzleAdapter } from 'better-auth/adapters/drizzle'
-import { admin } from 'better-auth/plugins'
-import { APP_BASE_URL } from '@/api/constants/env'
-import { EMAIL_FROM } from '@/api/constants/services'
-import { createDB } from '@/api/db'
-import { sendEmail } from '@/api/lib/email'
+import { betterAuth } from "better-auth"
+import { drizzleAdapter } from "better-auth/adapters/drizzle"
+import { admin } from "better-auth/plugins"
+import { APP_BASE_URL } from "@/api/constants/env"
+import { EMAIL_FROM } from "@/api/constants/services"
+import { createDB } from "@/api/db"
+import { sendEmail } from "@/api/lib/email"
 
 export const getAuth = (env: Env) => {
   const db = createDB(env)
   return betterAuth({
     database: drizzleAdapter(db, {
-      provider: 'sqlite',
+      provider: "sqlite",
     }),
     baseURL: APP_BASE_URL,
     trustedOrigins: [APP_BASE_URL],
     secondaryStorage: {
-      get: async key => {
+      get: async (key) => {
         const value = await env.KV.get(key)
         return value ? value.toString() : null
       },
@@ -26,7 +26,7 @@ export const getAuth = (env: Env) => {
           await env.KV.put(key, value)
         }
       },
-      delete: async key => {
+      delete: async (key) => {
         await env.KV.delete(key)
       },
     },
@@ -39,7 +39,7 @@ export const getAuth = (env: Env) => {
         await sendEmail({
           from: EMAIL_FROM,
           to: user.email,
-          subject: 'Reset your password',
+          subject: "Reset your password",
           html: `<p>Click <a href="${resetPasswordUrl}">here</a> to reset your password.</p>`,
         })
       },
@@ -51,7 +51,7 @@ export const getAuth = (env: Env) => {
         await sendEmail({
           from: EMAIL_FROM,
           to: user.email,
-          subject: 'Verify your email',
+          subject: "Verify your email",
           html: `<p>Click <a href="${verificationUrl}">here</a> to verify your email address.</p>`,
         })
       },

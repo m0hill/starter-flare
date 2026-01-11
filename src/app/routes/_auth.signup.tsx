@@ -1,10 +1,10 @@
-import { zodResolver } from '@hookform/resolvers/zod'
-import { EyeIcon, EyeOffIcon } from 'lucide-react'
-import { useState } from 'react'
-import { useForm } from 'react-hook-form'
-import { Link, useNavigate } from 'react-router'
-import { z } from 'zod'
-import { Button } from '@/app/components/ui/button'
+import { zodResolver } from "@hookform/resolvers/zod"
+import { EyeIcon, EyeOffIcon } from "lucide-react"
+import { useState } from "react"
+import { useForm } from "react-hook-form"
+import { Link, useNavigate } from "react-router"
+import { z } from "zod"
+import { Button } from "@/app/components/ui/button"
 import {
   Card,
   CardContent,
@@ -12,7 +12,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from '@/app/components/ui/card'
+} from "@/app/components/ui/card"
 import {
   Form,
   FormControl,
@@ -20,22 +20,22 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/app/components/ui/form'
-import { Input } from '@/app/components/ui/input'
-import { Spinner } from '@/app/components/ui/spinner'
-import { PASSWORD_REGEX, PASSWORD_REQUIREMENTS } from '@/app/constants/routes'
-import { authClient } from '@/app/lib/auth'
+} from "@/app/components/ui/form"
+import { Input } from "@/app/components/ui/input"
+import { Spinner } from "@/app/components/ui/spinner"
+import { PASSWORD_REGEX, PASSWORD_REQUIREMENTS } from "@/app/constants/routes"
+import { authClient } from "@/app/lib/auth"
 
 const RegisterSchema = z
   .object({
-    name: z.string().min(1, 'Name is required'),
-    email: z.string().email('Valid email is required'),
+    name: z.string().min(1, "Name is required"),
+    email: z.string().email("Valid email is required"),
     password: z.string().regex(PASSWORD_REGEX, PASSWORD_REQUIREMENTS),
     confirmPassword: z.string(),
   })
-  .refine(data => data.password === data.confirmPassword, {
+  .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords don't match",
-    path: ['confirmPassword'],
+    path: ["confirmPassword"],
   })
 
 type RegisterFormValues = z.infer<typeof RegisterSchema>
@@ -50,12 +50,12 @@ export default function SignupPage() {
   const form = useForm<RegisterFormValues>({
     resolver: zodResolver(RegisterSchema),
     defaultValues: {
-      name: '',
-      email: '',
-      password: '',
-      confirmPassword: '',
+      name: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
     },
-    mode: 'onChange',
+    mode: "onChange",
   })
 
   const onSubmit = async (values: RegisterFormValues) => {
@@ -73,11 +73,11 @@ export default function SignupPage() {
         },
         {
           onSuccess: () => {
-            localStorage.setItem('verification_email', email)
-            localStorage.setItem('verification_timestamp', Date.now().toString())
-            navigate('/verification')
+            localStorage.setItem("verification_email", email)
+            localStorage.setItem("verification_timestamp", Date.now().toString())
+            navigate("/verification")
           },
-          onError: ctx => {
+          onError: (ctx) => {
             setError(ctx.error.message)
             setIsLoading(false)
           },
@@ -92,7 +92,7 @@ export default function SignupPage() {
       if (err instanceof Error) {
         setError(err.message)
       } else {
-        setError('An unexpected error occurred')
+        setError("An unexpected error occurred")
       }
       setIsLoading(false)
     }
@@ -103,14 +103,14 @@ export default function SignupPage() {
     try {
       await authClient.signIn.social(
         {
-          provider: 'google',
-          callbackURL: '/api/dashboard',
+          provider: "google",
+          callbackURL: "/api/dashboard",
         },
         {
           onSuccess: async () => {
-            navigate('/dashboard')
+            navigate("/dashboard")
           },
-          onError: ctx => {
+          onError: (ctx) => {
             setError(ctx.error.message)
             setIsLoading(false)
           },
@@ -120,7 +120,7 @@ export default function SignupPage() {
       if (err instanceof Error) {
         setError(err.message)
       } else {
-        setError('An unexpected error occurred during Google sign-in')
+        setError("An unexpected error occurred during Google sign-in")
       }
       setIsLoading(false)
     }
@@ -171,7 +171,7 @@ export default function SignupPage() {
                       <FormLabel>Password</FormLabel>
                       <FormControl>
                         <div className="relative">
-                          <Input type={showPassword ? 'text' : 'password'} {...field} />
+                          <Input type={showPassword ? "text" : "password"} {...field} />
                           <button
                             type="button"
                             className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"
@@ -203,7 +203,7 @@ export default function SignupPage() {
                       <FormLabel>Confirm Password</FormLabel>
                       <FormControl>
                         <div className="relative">
-                          <Input type={showConfirmPassword ? 'text' : 'password'} {...field} />
+                          <Input type={showConfirmPassword ? "text" : "password"} {...field} />
                           <button
                             type="button"
                             className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"

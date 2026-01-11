@@ -1,11 +1,11 @@
-import type { AppLoadContext } from 'react-router'
+import type { AppLoadContext } from "react-router"
 
 type CloudflareContext = {
   env: Env
   ctx: ExecutionContext
 }
 
-declare module 'react-router' {
+declare module "react-router" {
   interface AppLoadContext {
     cloudflare: CloudflareContext
   }

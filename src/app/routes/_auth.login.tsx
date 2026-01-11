@@ -1,10 +1,10 @@
-import { zodResolver } from '@hookform/resolvers/zod'
-import { EyeIcon, EyeOffIcon } from 'lucide-react'
-import { useEffect, useState } from 'react'
-import { useForm } from 'react-hook-form'
-import { Link, useNavigate, useSearchParams } from 'react-router'
-import { z } from 'zod'
-import { Button } from '@/app/components/ui/button'
+import { zodResolver } from "@hookform/resolvers/zod"
+import { EyeIcon, EyeOffIcon } from "lucide-react"
+import { useEffect, useState } from "react"
+import { useForm } from "react-hook-form"
+import { Link, useNavigate, useSearchParams } from "react-router"
+import { z } from "zod"
+import { Button } from "@/app/components/ui/button"
 import {
   Card,
   CardContent,
@@ -12,7 +12,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from '@/app/components/ui/card'
+} from "@/app/components/ui/card"
 import {
   Form,
   FormControl,
@@ -20,14 +20,14 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/app/components/ui/form'
-import { Input } from '@/app/components/ui/input'
-import { Spinner } from '@/app/components/ui/spinner'
-import { authClient } from '@/app/lib/auth'
+} from "@/app/components/ui/form"
+import { Input } from "@/app/components/ui/input"
+import { Spinner } from "@/app/components/ui/spinner"
+import { authClient } from "@/app/lib/auth"
 
 const loginSchema = z.object({
-  email: z.string().email({ message: 'Please enter a valid email address' }),
-  password: z.string().min(8, { message: 'Password must be at least 8 characters' }),
+  email: z.string().email({ message: "Please enter a valid email address" }),
+  password: z.string().min(8, { message: "Password must be at least 8 characters" }),
 })
 
 type LoginFormValues = z.infer<typeof loginSchema>
@@ -43,20 +43,20 @@ export default function Login() {
   const form = useForm<LoginFormValues>({
     resolver: zodResolver(loginSchema),
     defaultValues: {
-      email: '',
-      password: '',
+      email: "",
+      password: "",
     },
-    mode: 'onChange',
+    mode: "onChange",
   })
 
   useEffect(() => {
-    if (searchParams.get('passwordReset') === 'success') {
+    if (searchParams.get("passwordReset") === "success") {
       setSuccessMessage(
-        'Your password has been successfully reset. You can now log in with your new password.'
+        "Your password has been successfully reset. You can now log in with your new password."
       )
-    } else if (searchParams.get('verified') === 'success') {
+    } else if (searchParams.get("verified") === "success") {
       setSuccessMessage(
-        'Your email has been verified successfully! You can now log in to your account.'
+        "Your email has been verified successfully! You can now log in to your account."
       )
     }
   }, [searchParams])
@@ -69,9 +69,9 @@ export default function Login() {
         { email: values.email, password: values.password },
         {
           onSuccess: async () => {
-            navigate('/dashboard')
+            navigate("/dashboard")
           },
-          onError: ctx => {
+          onError: (ctx) => {
             setError(ctx.error.message)
             setIsLoading(false)
           },
@@ -81,7 +81,7 @@ export default function Login() {
       if (err instanceof Error) {
         setError(err.message)
       } else {
-        setError('An unexpected error occurred')
+        setError("An unexpected error occurred")
       }
       setIsLoading(false)
     }
@@ -92,14 +92,14 @@ export default function Login() {
     try {
       await authClient.signIn.social(
         {
-          provider: 'google',
-          callbackURL: '/api/dashboard',
+          provider: "google",
+          callbackURL: "/api/dashboard",
         },
         {
           onSuccess: async () => {
-            navigate('/dashboard')
+            navigate("/dashboard")
           },
-          onError: ctx => {
+          onError: (ctx) => {
             setError(ctx.error.message)
             setIsLoading(false)
           },
@@ -109,7 +109,7 @@ export default function Login() {
       if (err instanceof Error) {
         setError(err.message)
       } else {
-        setError('An unexpected error occurred during Google sign-in')
+        setError("An unexpected error occurred during Google sign-in")
       }
       setIsLoading(false)
     }
@@ -155,7 +155,7 @@ export default function Login() {
                   </div>
                   <FormControl>
                     <div className="relative">
-                      <Input type={showPassword ? 'text' : 'password'} {...field} />
+                      <Input type={showPassword ? "text" : "password"} {...field} />
                       <button
                         type="button"
                         className="absolute right-3 top-1/2 -translate-y-1/2 text-gray-500 hover:text-gray-700"

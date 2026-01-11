@@ -1,8 +1,8 @@
-import { zValidator } from '@hono/zod-validator'
-import { Hono } from 'hono'
-import { z } from 'zod'
-import { createDB } from '@/api/db'
-import type { BaseEnv } from '@/api/types/hono'
+import { zValidator } from "@hono/zod-validator"
+import { Hono } from "hono"
+import { z } from "zod"
+import { createDB } from "@/api/db"
+import type { BaseEnv } from "@/api/types/hono"
 
 const GetUserByEmailSchema = z.object({
   email: z.string().email(),
@@ -12,12 +12,12 @@ const GetUserByEmailSchema = z.object({
  * Get user info
  */
 export const userRouter = new Hono<BaseEnv>().get(
-  '/me',
-  zValidator('query', GetUserByEmailSchema),
-  async c => {
+  "/me",
+  zValidator("query", GetUserByEmailSchema),
+  async (c) => {
     try {
       const db = createDB(c.env)
-      const { email } = c.req.valid('query')
+      const { email } = c.req.valid("query")
 
       const user = await db.query.user.findFirst({
         where: (users, { eq }) => eq(users.email, email),
@@ -29,11 +29,11 @@ export const userRouter = new Hono<BaseEnv>().get(
       })
 
       if (!user) {
-        throw new Error('User not found')
+        throw new Error("User not found")
       }
 
-      const session = c.get('session')
-      const sessionUser = c.get('user')
+      const session = c.get("session")
+      const sessionUser = c.get("user")
 
       return c.json(
         {
@@ -43,12 +43,10 @@ export const userRouter = new Hono<BaseEnv>().get(
             session,
             sessionUser,
           },
-          message: 'User found successfully',
+          message: "User found successfully",
         },
         200
       )
-    } catch (error) {
-      throw error
-    }
+    } catch {}
   }
 )

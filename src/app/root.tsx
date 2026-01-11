@@ -1,4 +1,4 @@
-import type { LinksFunction, LoaderFunctionArgs } from 'react-router'
+import type { LinksFunction, LoaderFunctionArgs } from "react-router"
 import {
   isRouteErrorResponse,
   Links,
@@ -8,17 +8,17 @@ import {
   ScrollRestoration,
   useLoaderData,
   useRouteError,
-} from 'react-router'
-import { PreventFlashOnWrongTheme, ThemeProvider, useTheme } from 'remix-themes'
-import { isDevelopment } from '@/app/constants/env'
-import { logError } from '@/app/lib/error-utils'
-import { createThemeSessionResolverWithSecret, getThemeSecret } from '@/app/lib/theme-utils.server'
-import { cn } from '@/app/lib/utils'
+} from "react-router"
+import { PreventFlashOnWrongTheme, ThemeProvider, useTheme } from "remix-themes"
+import { isDevelopment } from "@/app/constants/env"
+import { logError } from "@/app/lib/error-utils"
+import { createThemeSessionResolverWithSecret, getThemeSecret } from "@/app/lib/theme-utils.server"
+import { cn } from "@/app/lib/utils"
 
-import styles from './tailwind.css?url'
+import styles from "./tailwind.css?url"
 
 if (isDevelopment) {
-  import('react-scan').then(({ scan }) => {
+  import("react-scan").then(({ scan }) => {
     scan({
       enabled: false,
       log: true,
@@ -27,17 +27,17 @@ if (isDevelopment) {
 }
 
 export const links: LinksFunction = () => [
-  { rel: 'preconnect', href: 'https://fonts.googleapis.com' },
+  { rel: "preconnect", href: "https://fonts.googleapis.com" },
   {
-    rel: 'preconnect',
-    href: 'https://fonts.gstatic.com',
-    crossOrigin: 'anonymous',
+    rel: "preconnect",
+    href: "https://fonts.gstatic.com",
+    crossOrigin: "anonymous",
   },
   {
-    rel: 'stylesheet',
-    href: 'https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap',
+    rel: "stylesheet",
+    href: "https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap",
   },
-  { rel: 'stylesheet', href: styles },
+  { rel: "stylesheet", href: styles },
 ]
 
 export async function loader({ request }: LoaderFunctionArgs) {
@@ -89,9 +89,9 @@ export function App() {
 
 export function ErrorBoundary() {
   const error = useRouteError()
-  const theme = 'dark'
+  const theme = "dark"
 
-  logError(error, 'root-error-boundary')
+  logError(error, "root-error-boundary")
 
   return (
     <html lang="en" className={cn(theme)}>

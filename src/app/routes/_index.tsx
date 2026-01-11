@@ -1,21 +1,21 @@
-import type { MetaFunction } from 'react-router'
-import { Link } from 'react-router'
-import Features from '@/app/components/features'
-import Footer from '@/app/components/footer'
-import Header from '@/app/components/header'
-import { Button } from '@/app/components/ui/button'
-import { APP_BASE_URL, isDevelopment, isProduction, isStaging, MODE } from '@/app/constants/env'
-import { useRedirectIfAuthenticated } from '@/app/lib/auth'
+import type { MetaFunction } from "react-router"
+import { Link } from "react-router"
+import Features from "@/app/components/features"
+import Footer from "@/app/components/footer"
+import Header from "@/app/components/header"
+import { Button } from "@/app/components/ui/button"
+import { APP_BASE_URL, isDevelopment, isProduction, isStaging, MODE } from "@/app/constants/env"
+import { useRedirectIfAuthenticated } from "@/app/lib/auth"
 
 export const meta: MetaFunction = () => {
   return [
-    { title: 'Welcome to Our Platform' },
-    { name: 'description', content: 'The simplest solution for your complex problems.' },
+    { title: "Welcome to Our Platform" },
+    { name: "description", content: "The simplest solution for your complex problems." },
   ]
 }
 
 export default function Index() {
-  const isChecking = useRedirectIfAuthenticated('/dashboard')
+  const isChecking = useRedirectIfAuthenticated("/dashboard")
 
   if (isChecking) {
     return (
@@ -70,12 +70,12 @@ export default function Index() {
                     <span
                       className={`px-2 py-1 rounded text-xs font-medium ${
                         isDevelopment
-                          ? 'bg-blue-100 text-blue-800'
+                          ? "bg-blue-100 text-blue-800"
                           : isProduction
-                            ? 'bg-green-100 text-green-800'
+                            ? "bg-green-100 text-green-800"
                             : isStaging
-                              ? 'bg-yellow-100 text-yellow-800'
-                              : 'bg-gray-100 text-gray-800'
+                              ? "bg-yellow-100 text-yellow-800"
+                              : "bg-gray-100 text-gray-800"
                       }`}
                     >
                       {MODE}

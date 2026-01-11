@@ -1,16 +1,16 @@
-import fs from 'node:fs'
-import path from 'node:path'
-import dotenv from 'dotenv'
-import { defineConfig } from 'drizzle-kit'
+import fs from "node:fs"
+import path from "node:path"
+import dotenv from "dotenv"
+import { defineConfig } from "drizzle-kit"
 
-dotenv.config({ path: '.dev.vars' })
+dotenv.config({ path: ".dev.vars" })
 
 const getLocalD1DB = () => {
   try {
-    const basePath = path.resolve('.wrangler')
+    const basePath = path.resolve(".wrangler")
     const dbFile = fs
-      .readdirSync(basePath, { encoding: 'utf-8', recursive: true })
-      .find(f => f.endsWith('.sqlite'))
+      .readdirSync(basePath, { encoding: "utf-8", recursive: true })
+      .find((f) => f.endsWith(".sqlite"))
 
     if (!dbFile) {
       throw new Error(`.sqlite file not found in ${basePath}`)
@@ -19,20 +19,20 @@ const getLocalD1DB = () => {
     const url = path.resolve(basePath, dbFile)
     return url
   } catch (err) {
-    // biome-ignore lint/suspicious/noConsole: for development purposes
+    // oxlint-disable-next-line no-console
     console.info(`Error finding local DB: ${err}`)
     return null
   }
 }
 
-const target = process.env.TARGET || 'local'
-const isLocal = target === 'local'
-const isProduction = target === 'production'
+const target = process.env.TARGET || "local"
+const isLocal = target === "local"
+const isProduction = target === "production"
 
 export default defineConfig({
-  schema: './src/api/db/schema.ts',
-  out: './migrations',
-  dialect: 'sqlite',
+  schema: "./src/api/db/schema.ts",
+  out: "./migrations",
+  dialect: "sqlite",
   ...(isLocal
     ? {
         dbCredentials: {
@@ -40,7 +40,7 @@ export default defineConfig({
         },
       }
     : {
-        driver: 'd1-http',
+        driver: "d1-http",
         dbCredentials: {
           accountId: process.env.CLOUDFLARE_ACCOUNT_ID,
           databaseId: isProduction

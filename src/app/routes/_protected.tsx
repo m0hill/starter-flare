@@ -1,9 +1,9 @@
-import { useEffect } from 'react'
-import { Outlet, useNavigate } from 'react-router'
-import { DashboardSidebar } from '@/app/components/dashboard-sidebar'
-import { SidebarInset, SidebarProvider, SidebarTrigger } from '@/app/components/ui/sidebar'
-import { SessionProvider, useSession } from '@/app/contexts/session-context'
-import { logError } from '@/app/lib/error-utils'
+import { useEffect } from "react"
+import { Outlet, useNavigate } from "react-router"
+import { DashboardSidebar } from "@/app/components/dashboard-sidebar"
+import { SidebarInset, SidebarProvider, SidebarTrigger } from "@/app/components/ui/sidebar"
+import { SessionProvider, useSession } from "@/app/contexts/session-context"
+import { logError } from "@/app/lib/error-utils"
 
 function ProtectedLayoutContent() {
   const navigate = useNavigate()
@@ -11,13 +11,13 @@ function ProtectedLayoutContent() {
 
   useEffect(() => {
     if (!isLoading && !user) {
-      navigate('/login')
+      navigate("/login")
     }
   }, [isLoading, user, navigate])
 
   if (error) {
-    logError(error, 'auth:session-check')
-    navigate('/login')
+    logError(error, "auth:session-check")
+    navigate("/login")
     return null
   }
 

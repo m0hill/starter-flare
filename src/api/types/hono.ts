@@ -1,5 +1,5 @@
-import type { RequestIdVariables } from 'hono/request-id'
-import type { Session, User } from '@/api/types/auth'
+import type { RequestIdVariables } from "hono/request-id"
+import type { Session, User } from "@/api/types/auth"
 
 export interface BaseEnv {
   Bindings: Env

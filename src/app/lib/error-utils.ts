@@ -1,6 +1,6 @@
-/** biome-ignore-all lint/suspicious/noConsole: logger service */
-import { data, isRouteErrorResponse } from 'react-router'
-import { isDevelopment } from '@/app/constants/env'
+// oxlint-disable no-console
+import { data, isRouteErrorResponse } from "react-router"
+import { isDevelopment } from "@/app/constants/env"
 
 const LogLevel = {
   ERROR: 0,
@@ -19,7 +19,7 @@ class Logger {
   }
 
   private formatMessage(message: string, context?: string): string {
-    return `[${context || 'APP'}] ${message}`
+    return `[${context || "APP"}] ${message}`
   }
 
   error(message: string, context?: string, ...args: unknown[]): void {
@@ -51,7 +51,7 @@ class Logger {
       return
     }
 
-    const errorMessage = error instanceof Error ? error.message : 'Unknown error'
+    const errorMessage = error instanceof Error ? error.message : "Unknown error"
     this.error(errorMessage, context, error)
   }
 }
@@ -65,9 +65,9 @@ export function logError(error: unknown, context?: string): void {
 export function handleServerError(
   error: unknown,
   context: string,
-  userMessage = 'An unexpected error occurred'
+  userMessage = "An unexpected error occurred"
 ) {
-  logger.error('Server error occurred', context, {
+  logger.error("Server error occurred", context, {
     error: error instanceof Error ? error.message : error,
     stack: error instanceof Error ? error.stack : undefined,
     userMessage,
@@ -75,13 +75,13 @@ export function handleServerError(
 
   return data(
     {
-      status: 'error',
+      status: "error",
       message: userMessage,
     },
     {
       status: 500,
       headers: {
-        'Content-Type': 'application/json',
+        "Content-Type": "application/json",
       },
     }
   )
@@ -89,20 +89,20 @@ export function handleServerError(
 
 export function getErrorDetails(error: unknown) {
   const details = {
-    message: 'An unexpected error occurred',
+    message: "An unexpected error occurred",
     status: 500,
     isRouteError: false,
   }
 
   if (isRouteErrorResponse(error)) {
-    details.message = error.data?.message || error.data || 'An error occurred'
+    details.message = error.data?.message || error.data || "An error occurred"
     details.status = error.status
     details.isRouteError = true
   } else if (error instanceof Error) {
     details.message = error.message
   }
 
-  logger.debug('Error details extracted', 'ERROR_HANDLER', details)
+  logger.debug("Error details extracted", "ERROR_HANDLER", details)
 
   return details
 }

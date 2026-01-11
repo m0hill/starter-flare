@@ -1,9 +1,9 @@
-import { zodResolver } from '@hookform/resolvers/zod'
-import { useId, useState } from 'react'
-import { useForm } from 'react-hook-form'
-import { Link } from 'react-router'
-import { z } from 'zod'
-import { Button } from '@/app/components/ui/button'
+import { zodResolver } from "@hookform/resolvers/zod"
+import { useId, useState } from "react"
+import { useForm } from "react-hook-form"
+import { Link } from "react-router"
+import { z } from "zod"
+import { Button } from "@/app/components/ui/button"
 import {
   Card,
   CardContent,
@@ -11,7 +11,7 @@ import {
   CardFooter,
   CardHeader,
   CardTitle,
-} from '@/app/components/ui/card'
+} from "@/app/components/ui/card"
 import {
   Form,
   FormControl,
@@ -19,13 +19,13 @@ import {
   FormItem,
   FormLabel,
   FormMessage,
-} from '@/app/components/ui/form'
-import { Input } from '@/app/components/ui/input'
-import { Spinner } from '@/app/components/ui/spinner'
-import { authClient } from '@/app/lib/auth'
+} from "@/app/components/ui/form"
+import { Input } from "@/app/components/ui/input"
+import { Spinner } from "@/app/components/ui/spinner"
+import { authClient } from "@/app/lib/auth"
 
 const ForgotPasswordSchema = z.object({
-  email: z.string().email('Please enter a valid email address'),
+  email: z.string().email("Please enter a valid email address"),
 })
 
 type FormValues = z.infer<typeof ForgotPasswordSchema>
@@ -39,9 +39,9 @@ export default function ForgotPasswordPage() {
   const form = useForm<FormValues>({
     resolver: zodResolver(ForgotPasswordSchema),
     defaultValues: {
-      email: '',
+      email: "",
     },
-    mode: 'onChange',
+    mode: "onChange",
   })
 
   const onSubmit = async (values: FormValues) => {
@@ -61,7 +61,7 @@ export default function ForgotPasswordPage() {
       if (err instanceof Error) {
         setError(err.message)
       } else {
-        setError('An unexpected error occurred')
+        setError("An unexpected error occurred")
       }
     } finally {
       setIsLoading(false)
@@ -103,7 +103,7 @@ export default function ForgotPasswordPage() {
                   />
                   {error && <p className="text-destructive text-sm">{error}</p>}
                   <Button className="w-full" type="submit" disabled={isLoading}>
-                    {isLoading ? 'Sending...' : 'Send Reset Link'}
+                    {isLoading ? "Sending..." : "Send Reset Link"}
                     {isLoading && <Spinner variant="white" size="sm" className="ml-2" />}
                   </Button>
                 </form>

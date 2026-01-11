@@ -1,16 +1,16 @@
-import { adminClient } from 'better-auth/client/plugins'
-import { createAuthClient } from 'better-auth/react'
-import { useEffect, useState } from 'react'
-import { useNavigate } from 'react-router'
-import { APP_BASE_URL } from '@/app/constants/env'
-import { logError } from '@/app/lib/error-utils'
+import { adminClient } from "better-auth/client/plugins"
+import { createAuthClient } from "better-auth/react"
+import { useEffect, useState } from "react"
+import { useNavigate } from "react-router"
+import { APP_BASE_URL } from "@/app/constants/env"
+import { logError } from "@/app/lib/error-utils"
 
 export const authClient = createAuthClient({
   baseURL: APP_BASE_URL,
   plugins: [adminClient()],
 })
 
-export function useRedirectIfAuthenticated(redirectTo = '/dashboard') {
+export function useRedirectIfAuthenticated(redirectTo = "/dashboard") {
   const navigate = useNavigate()
   const [isChecking, setIsChecking] = useState(true)
 
@@ -22,7 +22,7 @@ export function useRedirectIfAuthenticated(redirectTo = '/dashboard') {
           navigate(redirectTo)
         }
       } catch (error) {
-        logError(error, 'auth:session-check')
+        logError(error, "auth:session-check")
       } finally {
         setIsChecking(false)
       }
