@@ -1,4 +1,3 @@
-// oxlint-disable no-console
 import { data, isRouteErrorResponse } from "react-router"
 import { isDevelopment } from "@/app/constants/env"
 
@@ -15,7 +14,7 @@ class Logger {
   constructor(private level: LogLevel = LogLevel.INFO) {}
 
   private shouldLog(level: LogLevel): boolean {
-    return isDevelopment && this.level >= level
+    return this.level >= level
   }
 
   private formatMessage(message: string, context?: string): string {
@@ -24,25 +23,25 @@ class Logger {
 
   error(message: string, context?: string, ...args: unknown[]): void {
     if (this.shouldLog(LogLevel.ERROR)) {
-      console.error(this.formatMessage(message, context), ...args)
+      globalThis["console"]?.error(this.formatMessage(message, context), ...args)
     }
   }
 
   warn(message: string, context?: string, ...args: unknown[]): void {
     if (this.shouldLog(LogLevel.WARN)) {
-      console.warn(this.formatMessage(message, context), ...args)
+      globalThis["console"]?.warn(this.formatMessage(message, context), ...args)
     }
   }
 
   info(message: string, context?: string, ...args: unknown[]): void {
     if (this.shouldLog(LogLevel.INFO)) {
-      console.info(this.formatMessage(message, context), ...args)
+      globalThis["console"]?.info(this.formatMessage(message, context), ...args)
     }
   }
 
   debug(message: string, context?: string, ...args: unknown[]): void {
     if (this.shouldLog(LogLevel.DEBUG)) {
-      console.debug(this.formatMessage(message, context), ...args)
+      globalThis["console"]?.debug(this.formatMessage(message, context), ...args)
     }
   }
 

@@ -1,6 +1,6 @@
 import { createCookieSessionStorage } from "react-router"
 import { createThemeSessionResolver } from "remix-themes"
-import { APP_BASE_URL, isProduction } from "@/app/constants/env"
+import { isProduction, isStaging } from "@/app/constants/env"
 
 export function createThemeSessionResolverWithSecret(secret: string) {
   const sessionStorage = createCookieSessionStorage({
@@ -10,8 +10,7 @@ export function createThemeSessionResolverWithSecret(secret: string) {
       httpOnly: true,
       sameSite: "lax",
       secrets: [secret],
-      domain: new URL(APP_BASE_URL).hostname,
-      secure: APP_BASE_URL.startsWith("https"),
+      secure: isProduction || isStaging,
     },
   })
 

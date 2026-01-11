@@ -1,10 +1,11 @@
 import type { MetaFunction } from "react-router"
 import { Link } from "react-router"
+import { useEffect, useState } from "react"
 import Features from "@/app/components/features"
 import Footer from "@/app/components/footer"
 import Header from "@/app/components/header"
 import { Button } from "@/app/components/ui/button"
-import { APP_BASE_URL, isDevelopment, isProduction, isStaging, MODE } from "@/app/constants/env"
+import { isDevelopment, isProduction, isStaging, MODE } from "@/app/constants/env"
 import { useRedirectIfAuthenticated } from "@/app/lib/auth"
 
 export const meta: MetaFunction = () => {
@@ -16,6 +17,11 @@ export const meta: MetaFunction = () => {
 
 export default function Index() {
   const isChecking = useRedirectIfAuthenticated("/dashboard")
+  const [origin, setOrigin] = useState("")
+
+  useEffect(() => {
+    setOrigin(window.location.origin)
+  }, [])
 
   if (isChecking) {
     return (
@@ -40,7 +46,7 @@ export default function Index() {
                 <h1 className="text-4xl font-bold tracking-tighter sm:text-5xl md:text-6xl">
                   Welcome to Our Platform
                 </h1>
-                <p className="mx-auto max-w-[700px] text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
+                <p className="mx-auto max-w-175 text-muted-foreground md:text-xl/relaxed lg:text-base/relaxed xl:text-xl/relaxed">
                   The simplest solution for your complex problems.
                 </p>
               </div>
@@ -83,7 +89,7 @@ export default function Index() {
                   </div>
                   <div className="flex justify-between items-center">
                     <span className="text-muted-foreground">Base URL:</span>
-                    <span className="text-primary text-xs break-all">{APP_BASE_URL}</span>
+                    <span className="text-primary text-xs break-all">{origin || "unknown"}</span>
                   </div>
                 </div>
               </div>

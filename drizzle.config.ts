@@ -19,8 +19,7 @@ const getLocalD1DB = () => {
     const url = path.resolve(basePath, dbFile)
     return url
   } catch (err) {
-    // oxlint-disable-next-line no-console
-    console.info(`Error finding local DB: ${err}`)
+    globalThis["console"]?.info(`Error finding local DB: ${err}`)
     return null
   }
 }

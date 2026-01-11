@@ -22,8 +22,7 @@ export default async function handleRequest(
       signal: controller.signal,
       onError(error: unknown) {
         if (!controller.signal.aborted) {
-          // oxlint-disable-next-line no-console
-          console.error(error)
+          globalThis["console"]?.error(error)
         }
         status = 500
       },
