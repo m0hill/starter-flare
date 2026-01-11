@@ -20,7 +20,7 @@ import styles from './tailwind.css?url'
 if (isDevelopment) {
   import('react-scan').then(({ scan }) => {
     scan({
-      enabled: true,
+      enabled: false,
       log: true,
     })
   })

@@ -108,7 +108,7 @@ export function DashboardSidebar() {
                 <span className="font-bold">U</span>
               </div>
               <div className="grid flex-1 text-left text-sm leading-tight">
-                <span className="truncate font-semibold">Upresume</span>
+                <span className="truncate font-semibold">Starter-Flare</span>
                 <span className="truncate text-xs">Admin Dashboard</span>
               </div>
             </SidebarMenuButton>
